@@ -8,7 +8,7 @@ export const books: Book[] = [
   {
     title: "You Are Silly",
     desc: [
-      `You Are Silly is author Kiran Kiran Katib's response to the recent changes in the world. These changes most often affect our children. Whether living in advanced or developing countries, children face a range of challenges from struggles in education to the impact of global conflicts. Despite advancements and upgrades in education, many children in the world are not safe.`,
+      `You Are Silly is author Kiran Katib's response to the recent changes in the world. These changes most often affect our children. Whether living in advanced or developing countries, children face a range of challenges from struggles in education to the impact of global conflicts. Despite advancements and upgrades in education, many children in the world are not safe.`,
       `As civilized individuals, some assume that proper education and upbringing are benefits and rights reserved only for privileged children, but what about the rest? Accepting that even a small of percentage of children will be deprived of these basic rights and failing to recognize their voices contradicts our duty to humanity. Every child regardless of their circumstances deserves a loving, supportive, positive upbringing.`
     ],
     cover: `https://m.media-amazon.com/images/I/71lOnUChdkL._SY522_.jpg`

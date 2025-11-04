@@ -102,3 +102,25 @@ a:hover {
 .fade-in {
   animation: fadeInUp 0.8s ease forwards;
 }
+
+
+@keyframes appearFromBelow {
+  0% {
+    opacity: 0;
+    /* transform: translateY(300px); */
+    transform: translate(0px, 300px);
+    /* Ease into the first segment (0% -> 25%) */
+    /* animation-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1); */
+  }
+  100% {
+    opacity: 1;
+    /* transform: translateY(0); */
+    transform: translate(0px, 0px);
+  }
+}
+
+.rise {
+  animation: appearFromBelow 1.8s both;
+  /* Smooth hardware-accelerated rendering */
+  will-change: transform, opacity;
+}
