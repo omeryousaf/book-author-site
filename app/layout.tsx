@@ -120,11 +120,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
              >
                {author.name}
              </Link>
-            <nav className="text-lg font-medium grid grid-cols-[100px_100px_100px] gap-x-3 items-start min-[700px]:gap-x-8 justify-items-start">
+            <nav className="text-lg font-medium grid grid-cols-[repeat(3,70px)] gap-x-3 items-start min-[700px]:gap-x-8 justify-items-start">
               {/* Home */}
               <Link
                 href="/"
-                className="relative group"
+                className="relative group leading-[2.25rem]"
               >
                 <span className={`transition-colors ${pathname === '/' ? 'text-indigo-600' : 'hover:text-indigo-600'}`}>Home</span>
                 <span className={`absolute left-0 -bottom-1 h-0.5 bg-indigo-600 transition-all duration-300 ${pathname === '/' ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
@@ -133,7 +133,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Link
                 ref={booksDropdownRef}
                 href="/books"
-                className="relative group"
+                className="relative group leading-[2.25rem]"
                 onMouseEnter={() => setIsBooksDropdownOpen(true)}
                 onMouseLeave={() => setIsBooksDropdownOpen(false)}
                 onClick={(e) => {
@@ -157,7 +157,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               {/* Contact */}
               <Link
                 href="/contact"
-                className="relative group"
+                className="relative group leading-[2.25rem]"
               >
                 <span className={`transition-colors ${pathname === '/contact' ? 'text-indigo-600' : 'hover:text-indigo-600'}`}>Contact</span>
                 <span className={`absolute left-0 -bottom-1 h-0.5 bg-indigo-600 transition-all duration-300 ${pathname === '/contact' ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
