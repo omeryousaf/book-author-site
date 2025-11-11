@@ -113,7 +113,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         {/* Header */}
         <header className="py-6 shadow bg-white/40 backdrop-blur-md sticky top-0 z-50 border-b border-white/30">
-          <div className="container mx-auto flex items-start px-6">
+          <div className="max-w-5xl mx-auto flex items-start px-6">
              <Link
                href="/"
                className="text-3xl font-extrabold text-indigo-600 tracking-tight hover:scale-105 transition-transform max-[500px]:basis-[100px] mr-auto"
@@ -170,8 +170,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     className="col-start-2 col-end-[-1] pt-2"
                     onMouseEnter={() => setIsBooksDropdownOpen(true)}
                     onMouseLeave={() => setIsBooksDropdownOpen(false)}
-                    initial={{ opacity: 0, y: -8, height: 0 }}
-                    animate={{ opacity: 1, y: 0, height: "auto" }}
+                    initial={{ y: -8, height: 0 }}
+                    animate={{ y: 0, height: "auto" }}
                     exit={{ opacity: 0, y: -8, height: 0 }}
                     transition={{ duration: 0.2, ease: "easeOut" }}
                     key="books-subnav"
