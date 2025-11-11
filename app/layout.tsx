@@ -32,7 +32,6 @@ const pageTransition = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const [isFramerMotionBased, setIsFramerMotionBased] = useState(false);
   const [content, setContent] = useState<React.ReactNode>(null);
   const [isBooksDropdownOpen, setIsBooksDropdownOpen] = useState(false);
   const booksDropdownRef = useRef<HTMLAnchorElement | null>(null);
@@ -47,7 +46,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   useEffect(() => {
     const shouldUseAnimations = typeof window !== 'undefined' && Math.random() * 10 > 5;
-    setIsFramerMotionBased(shouldUseAnimations);
     console.log(`Framer Motion Based animation: ${shouldUseAnimations}`)
 
     if (shouldUseAnimations) {
@@ -115,14 +113,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         {/* Header */}
         <header className="py-6 shadow bg-white/40 backdrop-blur-md sticky top-0 z-50 border-b border-white/30">
-          <div className="container mx-auto flex space-x-6 items-center px-6">
+          <div className="container mx-auto flex items-start px-6">
              <Link
                href="/"
-               className="text-3xl font-extrabold text-indigo-600 tracking-tight hover:scale-105 transition-transform max-[500px]:basis-[100px]"
+               className="text-3xl font-extrabold text-indigo-600 tracking-tight hover:scale-105 transition-transform max-[500px]:basis-[100px] mr-auto"
              >
                {author.name}
              </Link>
-            <nav className="space-x-6 text-lg font-medium flex flex-1 justify-end items-center min-[700px]:space-x-21">
+            <nav className="text-lg font-medium grid grid-cols-[100px_100px_100px] gap-x-3 items-start min-[700px]:gap-x-8 justify-items-start">
               {/* Home */}
               <Link
                 href="/"
@@ -154,36 +152,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               >
                 <span className={`transition-colors ${pathname.startsWith('/books') ? 'text-indigo-600' : 'hover:text-indigo-600'}`}>Books</span>
                 <span className={`absolute left-0 -bottom-1 h-0.5 bg-indigo-600 transition-all duration-300 ${pathname.startsWith('/books') ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
-                {/* Dropdown Menu */}
-                {isBooksDropdownOpen && (
-                  <div className="absolute top-full left-0 pt-2 w-56 z-50">
-                    <div
-                      id={booksMenuId}
-                      role="menu"
-                      aria-label="Books"
-                      className="bg-white/95 backdrop-blur-md rounded-lg shadow-xl border border-white/40 py-2 max-[700px]:max-w-[155px]"
-                    >
-                      {books.map((book) => {
-                        const slug = getBookSlug(book.title);
-                        const bookPath = `/books/${slug}`;
-                        return (
-                          <button
-                            key={book.title}
-                            type="button"
-                            role="menuitem"
-                            className={`block w-full text-left px-4 py-2 transition-colors focus:outline-none focus-visible:bg-indigo-100 focus-visible:text-indigo-700 rounded-sm ${pathname === bookPath ? 'bg-indigo-100 text-indigo-700' : 'text-gray-700 hover:bg-indigo-50 hover:text-indigo-600'}`}
-                            onClick={() => {
-                              setIsBooksDropdownOpen(false);
-                              router.push(bookPath);
-                            }}
-                          >
-                            {book.title}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-                )}
               </Link>
 
               {/* Contact */}
@@ -194,6 +162,51 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <span className={`transition-colors ${pathname === '/contact' ? 'text-indigo-600' : 'hover:text-indigo-600'}`}>Contact</span>
                 <span className={`absolute left-0 -bottom-1 h-0.5 bg-indigo-600 transition-all duration-300 ${pathname === '/contact' ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
               </Link>
+
+              {/* Books Dropdown - Second Row */}
+              <AnimatePresence initial={false}>
+                {isBooksDropdownOpen && (
+                  <motion.div
+                    className="col-start-2 col-end-[-1] pt-2"
+                    onMouseEnter={() => setIsBooksDropdownOpen(true)}
+                    onMouseLeave={() => setIsBooksDropdownOpen(false)}
+                    initial={{ opacity: 0, y: -8, height: 0 }}
+                    animate={{ opacity: 1, y: 0, height: "auto" }}
+                    exit={{ opacity: 0, y: -8, height: 0 }}
+                    transition={{ duration: 0.2, ease: "easeOut" }}
+                    key="books-subnav"
+                  >
+                    <motion.div
+                      id={booksMenuId}
+                      role="menu"
+                      aria-label="Books"
+                      className="rounded-lg py-2 min-w-0"
+                      layout
+                    >
+                      {books.map((book) => {
+                        const slug = getBookSlug(book.title);
+                        const bookPath = `/books/${slug}`;
+                        const isActiveBook = pathname === bookPath;
+                        return (
+                          <button
+                            key={book.title}
+                            type="button"
+                            role="menuitem"
+                            className={`flex w-full gap-2 text-left pr-4 pl-0 py-2 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 rounded-sm min-w-0 ${isActiveBook ? 'bg-indigo-100 text-indigo-700' : 'text-indigo-600 hover:text-indigo-700'}`}
+                            onClick={() => {
+                              setIsBooksDropdownOpen(false);
+                              router.push(bookPath);
+                            }}
+                          >
+                            <span aria-hidden="true" className="flex-shrink-0">📘</span>
+                            <span className="break-words whitespace-normal hover:underline">{book.title}</span>
+                          </button>
+                        );
+                      })}
+                    </motion.div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </nav>
           </div>
         </header>
