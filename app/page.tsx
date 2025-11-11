@@ -19,7 +19,7 @@ export default function Home() {
       </a> */}
 
       {/* Featured Books */}
-      <div className="max-w-6xl mx-auto mt-10 space-y-12">
+      <div className="max-w-6xl mt-10 space-y-12">
         {books.map((book, index) => (
           <div 
             key={index} 
