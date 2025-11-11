@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { author } from '@/data/author';
 import { books } from '@/data/books';
@@ -38,6 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const booksDropdownRef = useRef<HTMLAnchorElement | null>(null);
   const booksMenuId = 'books-menu';
   const pathname = usePathname();
+  const router = useRouter();
 
   // Function to generate slug from book title
   const getBookSlug = (title: string): string => {
@@ -114,14 +115,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         {/* Header */}
         <header className="py-6 shadow bg-white/40 backdrop-blur-md sticky top-0 z-50 border-b border-white/30">
-          <div className="container mx-auto flex justify-between items-center px-6">
+          <div className="container mx-auto flex space-x-6 items-center px-6">
              <Link
                href="/"
-               className="text-3xl font-extrabold text-indigo-600 tracking-tight hover:scale-105 transition-transform"
+               className="text-3xl font-extrabold text-indigo-600 tracking-tight hover:scale-105 transition-transform max-[500px]:basis-[100px]"
              >
                {author.name}
              </Link>
-            <nav className="space-x-6 text-lg font-medium flex items-center">
+            <nav className="space-x-6 text-lg font-medium flex flex-1 justify-end items-center min-[700px]:space-x-21">
               {/* Home */}
               <Link
                 href="/"
@@ -151,8 +152,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   setIsBooksDropdownOpen(false);
                 }}
               >
-                <span className={`transition-colors ${pathname === '/books' ? 'text-indigo-600' : 'hover:text-indigo-600'}`}>Books</span>
-                <span className={`absolute left-0 -bottom-1 h-0.5 bg-indigo-600 transition-all duration-300 ${pathname === '/books' ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
+                <span className={`transition-colors ${pathname.startsWith('/books') ? 'text-indigo-600' : 'hover:text-indigo-600'}`}>Books</span>
+                <span className={`absolute left-0 -bottom-1 h-0.5 bg-indigo-600 transition-all duration-300 ${pathname.startsWith('/books') ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
                 {/* Dropdown Menu */}
                 {isBooksDropdownOpen && (
                   <div className="absolute top-full left-0 pt-2 w-56 z-50">
@@ -160,21 +161,24 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                       id={booksMenuId}
                       role="menu"
                       aria-label="Books"
-                      className="bg-white/95 backdrop-blur-md rounded-lg shadow-xl border border-white/40 py-2"
+                      className="bg-white/95 backdrop-blur-md rounded-lg shadow-xl border border-white/40 py-2 max-[700px]:max-w-[155px]"
                     >
                       {books.map((book) => {
                         const slug = getBookSlug(book.title);
                         const bookPath = `/books/${slug}`;
                         return (
-                          <Link
+                          <button
                             key={book.title}
-                            href={bookPath}
+                            type="button"
                             role="menuitem"
-                            className={`block px-4 py-2 transition-colors focus:outline-none focus-visible:bg-indigo-100 focus-visible:text-indigo-700 rounded-sm ${pathname === bookPath ? 'bg-indigo-100 text-indigo-700' : 'text-gray-700 hover:bg-indigo-50 hover:text-indigo-600'}`}
-                            onClick={() => setIsBooksDropdownOpen(false)}
+                            className={`block w-full text-left px-4 py-2 transition-colors focus:outline-none focus-visible:bg-indigo-100 focus-visible:text-indigo-700 rounded-sm ${pathname === bookPath ? 'bg-indigo-100 text-indigo-700' : 'text-gray-700 hover:bg-indigo-50 hover:text-indigo-600'}`}
+                            onClick={() => {
+                              setIsBooksDropdownOpen(false);
+                              router.push(bookPath);
+                            }}
                           >
                             {book.title}
-                          </Link>
+                          </button>
                         );
                       })}
                     </div>
