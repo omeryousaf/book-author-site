@@ -4,9 +4,11 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { author } from '@/data/author';
-import { useEffect, useState } from "react";
+import { books } from '@/data/books';
+import { useEffect, useRef, useState } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,6 +34,15 @@ const pageTransition = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const [isFramerMotionBased, setIsFramerMotionBased] = useState(false);
   const [content, setContent] = useState<React.ReactNode>(null);
+  const [isBooksDropdownOpen, setIsBooksDropdownOpen] = useState(false);
+  const booksDropdownRef = useRef<HTMLAnchorElement | null>(null);
+  const booksMenuId = 'books-menu';
+  const pathname = usePathname();
+
+  // Function to generate slug from book title
+  const getBookSlug = (title: string): string => {
+    return title.toLowerCase().replace(/\s+/g, '-');
+  };
 
   useEffect(() => {
     const shouldUseAnimations = typeof window !== 'undefined' && Math.random() * 10 > 5;
@@ -92,7 +103,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </>
       );
     }
-  }, [children]);
+  }, []);
   return (
     <html lang="en">
       <body
@@ -110,20 +121,75 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
              >
                {author.name}
              </Link>
-            <nav className="space-x-6 text-lg font-medium">
-              {['Home', 'Books', 'Contact'].map((label) => {
-                const href = label === 'Home' ? '/' : `/${label.toLowerCase()}`;
-                return (
-                  <Link
-                    key={label}
-                    href={href}
-                    className="relative group"
-                  >
-                    <span className="hover:text-indigo-600 transition-colors">{label}</span>
-                    <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-indigo-600 group-hover:w-full transition-all duration-300"></span>
-                  </Link>
-                );
-              })}
+            <nav className="space-x-6 text-lg font-medium flex items-center">
+              {/* Home */}
+              <Link
+                href="/"
+                className="relative group"
+              >
+                <span className={`transition-colors ${pathname === '/' ? 'text-indigo-600' : 'hover:text-indigo-600'}`}>Home</span>
+                <span className={`absolute left-0 -bottom-1 h-0.5 bg-indigo-600 transition-all duration-300 ${pathname === '/' ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
+              </Link>
+
+              <Link
+                ref={booksDropdownRef}
+                href="/books"
+                className="relative group"
+                onMouseEnter={() => setIsBooksDropdownOpen(true)}
+                onMouseLeave={() => setIsBooksDropdownOpen(false)}
+                onClick={(e) => {
+                  e.preventDefault(); // prevent navigation
+                }}
+                onFocus={(e) => {
+                  // open when any child receives focus
+                  setIsBooksDropdownOpen(true);
+                }}
+                onBlur={(e) => {
+                  // close only if the next focused element is outside the dropdown
+                  const next = e.relatedTarget as Node | null;
+                  if (next && booksDropdownRef.current?.contains(next)) return;
+                  setIsBooksDropdownOpen(false);
+                }}
+              >
+                <span className={`transition-colors ${pathname === '/books' ? 'text-indigo-600' : 'hover:text-indigo-600'}`}>Books</span>
+                <span className={`absolute left-0 -bottom-1 h-0.5 bg-indigo-600 transition-all duration-300 ${pathname === '/books' ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
+                {/* Dropdown Menu */}
+                {isBooksDropdownOpen && (
+                  <div className="absolute top-full left-0 pt-2 w-56 z-50">
+                    <div
+                      id={booksMenuId}
+                      role="menu"
+                      aria-label="Books"
+                      className="bg-white/95 backdrop-blur-md rounded-lg shadow-xl border border-white/40 py-2"
+                    >
+                      {books.map((book) => {
+                        const slug = getBookSlug(book.title);
+                        const bookPath = `/books/${slug}`;
+                        return (
+                          <Link
+                            key={book.title}
+                            href={bookPath}
+                            role="menuitem"
+                            className={`block px-4 py-2 transition-colors focus:outline-none focus-visible:bg-indigo-100 focus-visible:text-indigo-700 rounded-sm ${pathname === bookPath ? 'bg-indigo-100 text-indigo-700' : 'text-gray-700 hover:bg-indigo-50 hover:text-indigo-600'}`}
+                            onClick={() => setIsBooksDropdownOpen(false)}
+                          >
+                            {book.title}
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+              </Link>
+
+              {/* Contact */}
+              <Link
+                href="/contact"
+                className="relative group"
+              >
+                <span className={`transition-colors ${pathname === '/contact' ? 'text-indigo-600' : 'hover:text-indigo-600'}`}>Contact</span>
+                <span className={`absolute left-0 -bottom-1 h-0.5 bg-indigo-600 transition-all duration-300 ${pathname === '/contact' ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
+              </Link>
             </nav>
           </div>
         </header>

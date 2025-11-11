@@ -15,6 +15,6 @@ export const author: Author = {
     `With a bachelor’s degree in science and additional coursework in management and early years education, Kiran brings a unique perspective to her writing. Her passion for children’s literature began when she started reading to her son and discovered the power of stories to inspire and educate.`,
     `Through her writing, Kiran aims to create a positive impact on the world, one child at a time.`
   ],
-  tagline: "Author, poet, and storyteller. Dive into a world of imagination, emotion, and truth — written straight from the heart."
+  tagline: "Dive into a world of imagination, emotion, and truth — written straight from the heart."
 };
 

@@ -3,27 +3,29 @@ import { author } from '@/data/author';
 
 export default function Home() {
   return (
-    <main className="flex flex-col items-center text-center py-24 px-6">
+    <main className="flex flex-col items-center text-center py-12 px-6">
       {/* Hero Section */}
-      <h1 className="text-5xl font-extrabold text-indigo-700 mb-4">
+      {/* <h1 className="text-5xl font-extrabold text-indigo-700 mb-4">
         {author.name}
-      </h1>
+      </h1> */}
       <p className="text-lg text-gray-600 max-w-2xl mb-8">
         {author.tagline}
       </p>
-      <a
+      {/* <a
         href="/books"
         className="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-full hover:bg-indigo-700 transition-colors"
       >
         Explore My Books
-      </a>
+      </a> */}
 
       {/* Featured Books */}
-      <div className="max-w-6xl mx-auto mt-20 space-y-12">
+      <div className="max-w-6xl mx-auto mt-10 space-y-12">
         {books.map((book, index) => (
           <div 
             key={index} 
-            className={`bg-white/70 backdrop-blur-xl rounded-3xl shadow-xl border border-white/30 p-8 flex flex-col ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-8`}
+            className={`bg-white/70 backdrop-blur-xl rounded-3xl shadow-xl border border-white/30
+              p-8 flex flex-col ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}
+              items-center gap-8`}
           >
             <img
               src={book.cover}
@@ -38,7 +40,7 @@ export default function Home() {
                 {book.desc[0]}
               </p>
               <a
-                href="/books"
+                href={book.title.toLowerCase() === 'you are silly' ? '/books/you-are-silly' : '/books'}
                 className="text-indigo-600 font-semibold hover:underline"
               >
                 Read More →
