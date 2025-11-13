@@ -2,7 +2,7 @@ import { author } from '@/data/author';
 
 export default function Contact() {
     return (
-      <main className="min-h-screen bg-gray-50 text-gray-900">
+      <main className="min-h-screen text-gray-900">
         <section className="container mx-auto px-6 py-20 text-center">
           <h2 className="text-4xl font-bold mb-6 text-indigo-600">Contact {author.name}</h2>
           <p className="max-w-xl mx-auto text-gray-700 mb-8">
