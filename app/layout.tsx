@@ -72,14 +72,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </AnimatePresence>
 
           {/* Footer */}
-          <footer className="py-8 bg-white/40 backdrop-blur-md text-center text-gray-600 border-t border-white/30">
+          <footer className="py-8 bg-white/40 backdrop-blur-md text-center text-neutral-600 border-t border-white/30">
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1, transition: { delay: 1.9 } }}
               className="text-sm tracking-wide"
             >
               © {new Date().getFullYear()}{" "}
-              <span className="font-semibold text-indigo-600">{author.name}</span>. All rights reserved.
+              <span className="font-semibold text-primary-600">{author.name}</span>. All rights reserved.
             </motion.p>
           </footer>
         </>
@@ -97,10 +97,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </main>
 
           {/* Footer */}
-          <footer className="py-8 bg-white/40 backdrop-blur-md text-center text-gray-600 border-t border-white/30">
+          <footer className="py-8 bg-white/40 backdrop-blur-md text-center text-neutral-600 border-t border-white/30">
             <p className="text-sm tracking-wide">
               © {new Date().getFullYear()}{" "}
-              <span className="font-semibold text-indigo-600">{author.name}</span>. All rights reserved.
+              <span className="font-semibold text-primary-600">{author.name}</span>. All rights reserved.
             </p>
           </footer>
         </>
@@ -123,7 +123,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body
-        className={`min-h-screen overflow-x-hidden relative text-gray-900 ${geistSans.variable} ${geistMono.variable}`}
+        className={`min-h-screen overflow-x-hidden relative text-neutral-900 ${geistSans.variable} ${geistMono.variable}`}
       >
         <AnimatePresence mode="wait" initial={false}>
           {showIntro && (
@@ -147,14 +147,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             className="relative"
           >
             {/* Animated gradient background */}
-            <div className={`absolute inset-0 -z-10 ${''} bg-[radial-gradient(circle_at_30%_30%,rgba(99,102,241,0.25)_0%,transparent_70%),radial-gradient(circle_at_70%_70%,rgba(168,85,247,0.25)_0%,transparent_70%)]`}></div>
+            <div 
+              className="absolute inset-0 -z-10" 
+              style={{
+                background: `radial-gradient(circle at 30% 30%, var(--color-gradient-primary) 0%, transparent 70%), radial-gradient(circle at 70% 70%, var(--color-gradient-secondary) 0%, transparent 70%)`
+              }}
+            ></div>
 
             {/* Header */}
             <header className="py-6 shadow bg-white/40 backdrop-blur-md sticky top-0 z-50 border-b border-white/30">
               <div className="max-w-5xl mx-auto flex items-start px-6">
                 <Link
                   href="/"
-                  className="text-3xl font-extrabold text-indigo-600 tracking-tight hover:scale-105 transition-transform max-[500px]:basis-[100px] mr-auto"
+                  className="text-3xl font-extrabold text-primary-600 tracking-tight hover:scale-105 transition-transform max-[500px]:basis-[100px] mr-auto"
                 >
                   {author.name}
                 </Link>
@@ -164,8 +169,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     href="/"
                     className="relative group leading-[2.25rem]"
                   >
-                    <span className={`transition-colors ${pathname === '/' ? 'text-indigo-600' : 'hover:text-indigo-600'}`}>Home</span>
-                    <span className={`absolute left-0 -bottom-1 h-0.5 bg-indigo-600 transition-all duration-300 ${pathname === '/' ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
+                    <span className={`transition-colors ${pathname === '/' ? 'text-primary-600' : 'hover:text-primary-600'}`}>Home</span>
+                    <span className={`absolute left-0 -bottom-1 h-0.5 bg-primary-600 transition-all duration-300 ${pathname === '/' ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
                   </Link>
 
                   <Link
@@ -186,8 +191,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                       setIsBooksDropdownOpen(false);
                     }}
                   >
-                    <span className={`transition-colors ${pathname.startsWith('/books') ? 'text-indigo-600' : 'hover:text-indigo-600'}`}>Books</span>
-                    <span className={`absolute left-0 -bottom-1 h-0.5 bg-indigo-600 transition-all duration-300 ${pathname.startsWith('/books') ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
+                    <span className={`transition-colors ${pathname.startsWith('/books') ? 'text-primary-600' : 'hover:text-primary-600'}`}>Books</span>
+                    <span className={`absolute left-0 -bottom-1 h-0.5 bg-primary-600 transition-all duration-300 ${pathname.startsWith('/books') ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
                   </Link>
 
                   {/* Contact */}
@@ -195,8 +200,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     href="/contact"
                     className="relative group leading-[2.25rem]"
                   >
-                    <span className={`transition-colors ${pathname === '/contact' ? 'text-indigo-600' : 'hover:text-indigo-600'}`}>Contact</span>
-                    <span className={`absolute left-0 -bottom-1 h-0.5 bg-indigo-600 transition-all duration-300 ${pathname === '/contact' ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
+                    <span className={`transition-colors ${pathname === '/contact' ? 'text-primary-600' : 'hover:text-primary-600'}`}>Contact</span>
+                    <span className={`absolute left-0 -bottom-1 h-0.5 bg-primary-600 transition-all duration-300 ${pathname === '/contact' ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
                   </Link>
 
                   {/* Books Dropdown - Second Row */}
@@ -228,7 +233,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                                 key={book.title}
                                 type="button"
                                 role="menuitem"
-                                className={`flex w-full gap-2 text-left pr-4 pl-0 py-2 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 rounded-sm min-w-0 ${isActiveBook ? 'bg-indigo-100 text-indigo-700' : 'text-indigo-600 hover:text-indigo-700'}`}
+                                className={`flex w-full gap-2 text-left pr-4 pl-0 py-2 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 rounded-sm min-w-0 ${isActiveBook ? 'bg-primary-100 text-primary-700' : 'text-primary-600 hover:text-primary-700'}`}
                                 onClick={() => {
                                   setIsBooksDropdownOpen(false);
                                   router.push(bookPath);
