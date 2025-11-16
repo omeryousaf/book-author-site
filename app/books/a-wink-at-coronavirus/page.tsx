@@ -8,7 +8,7 @@ export default function AWinkAtCoronavirusPage() {
     return (
       <div className="py-16 text-center">
         <h1 className="text-3xl font-bold mb-4">Book not found</h1>
-        <p className="text-gray-600">Please go back and try again.</p>
+        <p className="text-neutral-600">Please go back and try again.</p>
       </div>
     );
   }
@@ -28,8 +28,8 @@ export default function AWinkAtCoronavirusPage() {
         </div>
 
         <div className="w-full md:w-3/5 space-y-6">
-          <h1 className="text-4xl font-extrabold tracking-tight text-indigo-700">{book.title}</h1>
-          <div className="space-y-4 text-gray-700 leading-relaxed">
+          <h1 className="text-4xl font-extrabold tracking-tight text-primary-700">{book.title}</h1>
+          <div className="space-y-4 text-neutral-700 leading-relaxed">
             {book.desc.map((paragraph, idx) => (
               <p key={idx}>{paragraph}</p>
             ))}
@@ -45,7 +45,7 @@ export default function AWinkAtCoronavirusPage() {
                       href={url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-block px-4 py-2 rounded-full border border-indigo-300 text-indigo-700 bg-indigo-50 hover:bg-indigo-100 hover:border-indigo-400 transition-colors"
+                      className="inline-block px-4 py-2 rounded-full border border-primary-300 text-primary-700 bg-primary-50 hover:bg-primary-100 hover:border-primary-400 transition-colors"
                     >
                       {label}
                     </Link>

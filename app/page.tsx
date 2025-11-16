@@ -8,12 +8,12 @@ export default function Home() {
       {/* <h1 className="text-5xl font-extrabold text-indigo-700 mb-4">
         {author.name}
       </h1> */}
-      <p className="text-lg text-gray-600 max-w-2xl mb-8">
+      <p className="text-lg text-neutral-600 max-w-2xl mb-8">
         {author.tagline}
       </p>
       {/* <a
         href="/books"
-        className="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-full hover:bg-indigo-700 transition-colors"
+        className="px-6 py-3 bg-primary-600 text-white font-semibold rounded-full hover:bg-primary-700 transition-colors"
       >
         Explore My Books
       </a> */}
@@ -33,15 +33,15 @@ export default function Home() {
               className="w-56 h-80 object-cover rounded-2xl shadow-lg border border-white/40"
             />
             <div className="text-left md:text-left">
-              <h2 className="text-3xl font-bold text-indigo-700 mb-3">
+              <h2 className="text-3xl font-bold text-primary-700 mb-3">
                 "{book.title}"
               </h2>
-              <p className="text-gray-700 leading-relaxed mb-4">
+              <p className="text-neutral-700 leading-relaxed mb-4">
                 {book.desc[0]}
               </p>
               <a
                 href={book.title.toLowerCase() === 'you are silly' ? '/books/you-are-silly' : '/books'}
-                className="text-indigo-600 font-semibold hover:underline"
+                className="text-primary-600 font-semibold hover:underline"
               >
                 Read More →
               </a>
@@ -52,11 +52,11 @@ export default function Home() {
 
       {/* About Author */}
       <div className="max-w-3xl mx-auto mt-20">
-        <h3 className="text-2xl font-semibold text-indigo-700 mb-3">
+        <h3 className="text-2xl font-semibold text-primary-700 mb-3">
           About the Author
         </h3>
         {author.bio.map((paragraph, index) => 
-          <p key={index} className="text-gray-700 leading-relaxed mb-3">
+          <p key={index} className="text-neutral-700 leading-relaxed mb-3">
             {paragraph}
           </p>
         )}

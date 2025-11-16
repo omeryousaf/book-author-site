@@ -5,7 +5,7 @@ export default function Books() {
   
     return (
       <main className="flex flex-col items-center text-center py-24 px-6">
-        <h1 className="text-5xl font-extrabold text-indigo-700 mb-4">Books by {author.name}</h1>
+        <h1 className="text-5xl font-extrabold text-primary-700 mb-4">Books by {author.name}</h1>
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mt-20">
           {books.map((b, i) => (
             <div key={i} className="p-6 bg-white shadow rounded-xl hover:shadow-lg transition">
@@ -18,7 +18,7 @@ export default function Books() {
                 />
               </div>
               {b.desc.map((paragraph, index) => (
-                <p key={index} className="text-gray-700 mb-2">{paragraph}</p>
+                <p key={index} className="text-neutral-700 mb-2">{paragraph}</p>
               ))}
             </div>
           ))}
